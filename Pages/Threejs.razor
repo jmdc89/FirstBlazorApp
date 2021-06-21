@@ -1,0 +1,29 @@
+@page "/threejs"
+
+@* <h1>Hello Three.js</h1> *@
+
+@inject IJSRuntime JSRuntime
+<div id="threejscontainer" style="width: 600px; height: 600px;"></div>
+<div>
+<button type="button" class="btn btn-primary" style="margin-top: 10px" @onclick="Stop">
+    Stop
+</button>
+<button type="button" class="btn btn-primary" style="margin-top: 10px" @onclick="Dance">
+    Dance
+</button>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.load");
+    }
+    public async Task Stop()
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.stop");
+    }
+    public async Task Dance()
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.start");
+    }
+}
